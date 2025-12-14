@@ -33,7 +33,7 @@ python scraper.py
 ## CSV Output
 
 The script saves results to books.csv with the following columns:
-
+```
 name — book title
 price — price of the book
 availability — stock status
