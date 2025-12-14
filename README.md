@@ -25,7 +25,7 @@ cd my_project
 
 2. Install dependencies:
 pip install -r requirements.txt
-
+```
 ##  Usage
 
 python scraper.py
