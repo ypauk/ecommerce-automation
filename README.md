@@ -1,35 +1,42 @@
 # Books Scraper
 
-A simple Python web scraper for [Books to Scrape](https://books.toscrape.com) that collects book information including title, price, availability, rating, and link.
+A Python web scraper that collects book data from [Books to Scrape](https://books.toscrape.com) including title, price, availability, rating, and link.  
+The project demonstrates web scraping with **BeautifulSoup** and saving data to CSV.
 
 ## Features
 
-- Scrapes multiple pages
-- Collects book details: title, price, availability, rating, page number, link
-- Saves data to CSV (`books.csv`)
+- Scrapes multiple pages of books
+- Collects detailed book information:
+  - `name`
+  - `price`
+  - `availability`
+  - `rating`
+  - `page number`
+  - `link` (absolute URL)
+- Saves data to `books.csv`
+- Easy to run with Python or Docker (optional)
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone <repo_url>
+git clone https://github.com/ypauk/my_project.git
+cd my_project
 
 2. Install dependencies:
 pip install -r requirements.txt
 
-3. Usage
+##  Usage
+
 python scraper.py
 
-4. CSV Output
+## CSV Output
 
-The CSV file contains the following columns:
+The script saves results to books.csv with the following columns:
 
-    name
-    price
-    availability
-    rating
-    page
-    link
-
-5. License
-MIT License
+name — book title
+price — price of the book
+availability — stock status
+rating — star rating
+page — page number
+link — absolute link to the book
