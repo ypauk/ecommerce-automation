@@ -3,6 +3,7 @@ My Python Projects
 This repository contains two separate Python projects:
 1. Books Scraper – a web scraper for books data.
 2. FakeStore API Automation Tests – automated API tests for the FakeStore API.
+3. UI Test Automation Project
 
 # Project 1. Books Scraper
 
@@ -120,3 +121,24 @@ API client is reusable and configurable via fixture (conftest.py)
 JSON schema validation ensures contract compliance
 
 Parametrized tests demonstrate multiple payloads and edge cases
+
+# Project 3: UI Test Automation Project
+
+🔹 Tech stack:
+- Python
+- Selenium WebDriver
+- Pytest
+- Page Object Model (POM)
+
+🔹 Tested application:
+https://www.saucedemo.com/
+
+🔹 Test scenarios:
+- Login (valid, invalid, locked user)
+- Add to cart
+- Checkout process
+- UI validations (prices)
+
+🔹 How to run:
+pip install -r requirements.txt  
+pytest -v

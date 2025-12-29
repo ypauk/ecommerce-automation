@@ -3,3 +3,5 @@ requests
 lxml
 pytest
 jsonschema
+selenium
+webdriver-manager
