@@ -2,6 +2,9 @@ beautifulsoup4
 requests
 lxml
 pytest
+requests
+jsonschema
+pytest
 jsonschema
 selenium
 webdriver-manager
