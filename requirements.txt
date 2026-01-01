@@ -7,4 +7,3 @@ jsonschema
 pytest
 jsonschema
 selenium
-webdriver-manager
