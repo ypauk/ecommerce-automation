@@ -1,5 +1,3 @@
-My Python Projects
-
 This repository contains several separate Python projects:
 1. Books Scraper – a web scraper for books data.
 2. FakeStore API Automation Tests – automated API tests for the FakeStore API.
@@ -37,8 +35,9 @@ The project demonstrates web scraping with **BeautifulSoup** and saving data to 
 - Easy to run with Python or Docker (optional)
 
 ##  Usage
-
+```
 python scraper.py
+```
 
 ## CSV Output
 
