@@ -37,7 +37,7 @@ The project demonstrates web scraping with **BeautifulSoup** and saving data to 
 - Easy to run with Python or Docker (optional)
 
 ##  Usage
-```shell
+```bash
 python scraper.py
 ```
 
@@ -106,7 +106,7 @@ Parametrized tests for multiple payloads
 
 ## Installation & Run Tests
 
-```
+```bash
 # From project root
 python -m venv venv
 source venv/bin/activate   # Linux / macOS
@@ -133,7 +133,7 @@ JSON schema validation ensures contract compliance
 Parametrized tests demonstrate multiple payloads and edge cases
 
 ## Run in Docker (uses Dockerfile):
-```
+```bush
 docker build -t ecommerce-tests .
 docker run --rm ecommerce-tests
 ```
@@ -184,14 +184,14 @@ Flags to control mode:
 - HEADLESS=0 → show browser window
 
 🔹 Run locally:
-```
+```PowerShell
 $env:USE_WEBDRIVER_MANAGER="1"; $env:HEADLESS="0"; python -m pytest -v ui_tests/tests
 ```
 
 🔹 Run in Docker.
 
 Headless mode:
-```
+```bush
 docker build -t ecommerce-tests .
 docker run --rm ecommerce-tests
 
@@ -202,7 +202,7 @@ docker run --rm \
 ```
 
 Debug mode (browser with UI)
-```
+```bush
 docker run --rm \
   -e HEADLESS=0 \
   -e USE_WEBDRIVER_MANAGER=1 \
