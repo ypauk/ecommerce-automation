@@ -51,6 +51,12 @@ page — page number
 link — absolute link to the book
 ```
 
+## Run in Docker:
+```
+docker build -f Dockerfile.scraper -t ecommerce-scraper .
+docker run --rm ecommerce-scraper
+```
+
 # Project 2: FakeStore API Automation Tests
 
 Automated API tests for FakeStore API
@@ -123,6 +129,12 @@ JSON schema validation ensures contract compliance
 
 Parametrized tests demonstrate multiple payloads and edge cases
 
+## Run in Docker (uses Dockerfile):
+```
+docker build -t ecommerce-tests .
+docker run --rm ecommerce-tests
+```
+
 # Project 3: UI Test Automation Project
 
 🔹 Tech stack:
@@ -140,13 +152,27 @@ https://www.saucedemo.com/
 - Checkout process
 - UI validations (prices)
 
-🔹 How to run:
-pip install -r requirements.txt  
-pytest -v
+Supports local Chrome browser or headless mode (for Docker/CI)
+Flags to control mode:
+- USE_WEBDRIVER_MANAGER=1 → local ChromeDriver
+- HEADLESS=0 → show browser window
+
+🔹 Run locally:
+$env:USE_WEBDRIVER_MANAGER="1"; $env:HEADLESS="0"; python -m pytest -v ui_tests/tests
+
+🔹 Run in Docker:
+docker build -t ecommerce-tests .
+docker run --rm ecommerce-tests
+
 
 # Project 4: Docker support 
 
 ## 🐳 Run tests with Docker
+
+Two separate Dockerfiles:
+- Dockerfile → for running UI & API tests
+- Dockerfile.scraper → for running Books Scraper
+Isolated environments reduce image size and simplify CI/CD
 
 Build image:
 ```bash
@@ -162,3 +188,8 @@ Run UI tests:
 docker run --rm ecommerce-tests pytest ui_tests
 
 ```
+
+```markdown
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![Pytest](https://img.shields.io/badge/pytest-passing-brightgreen)
+![Docker](https://img.shields.io/badge/docker-ready-blue)
