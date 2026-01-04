@@ -182,12 +182,31 @@ Flags to control mode:
 - HEADLESS=0 → show browser window
 
 🔹 Run locally:
+```
 $env:USE_WEBDRIVER_MANAGER="1"; $env:HEADLESS="0"; python -m pytest -v ui_tests/tests
+```
 
-🔹 Run in Docker:
+🔹 Run in Docker.
+
+Headless mode:
+```
+#Headless mode
 docker build -t ecommerce-tests .
 docker run --rm ecommerce-tests
 
+docker run --rm \
+  -e HEADLESS=1 \
+  -e USE_WEBDRIVER_MANAGER=1 \
+  ecommerce-tests
+```
+
+Debug mode (browser with UI)
+```
+docker run --rm \
+  -e HEADLESS=0 \
+  -e USE_WEBDRIVER_MANAGER=1 \
+  ecommerce-tests
+```
 
 # Project 4: Docker support 
 
