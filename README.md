@@ -190,7 +190,6 @@ $env:USE_WEBDRIVER_MANAGER="1"; $env:HEADLESS="0"; python -m pytest -v ui_tests/
 
 Headless mode:
 ```
-#Headless mode
 docker build -t ecommerce-tests .
 docker run --rm ecommerce-tests
 
