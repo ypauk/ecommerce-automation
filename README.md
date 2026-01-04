@@ -6,6 +6,18 @@ This repository contains several separate Python projects:
 3. UI Test Automation Project
 4. Docker support – containerized environment for running API and UI tests.
 
+## Installation
+
+1. Clone the repository:
+```bash
+git clone git clone https://github.com/ypauk/ecommerce-automation.git
+cd ecommerce-automation
+
+2. Install dependencies:
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
 # Project 1. Books Scraper
 
 A Python web scraper that collects book data from [Books to Scrape](https://books.toscrape.com) including title, price, availability, rating, and link.  
@@ -24,16 +36,6 @@ The project demonstrates web scraping with **BeautifulSoup** and saving data to 
 - Saves data to `books.csv`
 - Easy to run with Python or Docker (optional)
 
-## Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/ypauk/my_project.git
-cd my_project
-
-2. Install dependencies:
-pip install -r requirements.txt
-```
 ##  Usage
 
 python scraper.py
@@ -152,6 +154,29 @@ https://www.saucedemo.com/
 - Checkout process
 - UI validations (prices)
 
+## Project Structure
+
+```
+ui_tests/
+├── pages/                  # Page Object Model (POM) classes
+│   ├── base_page.py         # Base page with common methods
+│   ├── login_page.py        # Login page actions
+│   ├── inventory_page.py    # Inventory (products) page
+│   ├── cart_page.py         # Shopping cart page
+│   └── checkout_page.py     # Checkout process page
+│
+├── core/                   # WebDriver setup and configuration
+│   └── driver_factory.py   # Browser initialization logic
+│
+├── tests/                  # UI test cases
+│   ├── test_login.py
+│   ├── test_inventory.py
+│   ├── test_cart.py
+│   └── test_checkout.py
+│
+└── conftest.py              # Pytest fixtures for UI tests
+```
+
 Supports local Chrome browser or headless mode (for Docker/CI)
 Flags to control mode:
 - USE_WEBDRIVER_MANAGER=1 → local ChromeDriver
@@ -166,6 +191,17 @@ docker run --rm ecommerce-tests
 
 
 # Project 4: Docker support 
+
+## Project Structure
+
+```
+ecommerce-automation/
+├── Dockerfile              # Docker image for running API & UI tests
+├── Dockerfile.scraper      # Docker image for running the books scraper
+├── requirements.txt        # Python dependencies
+├── .dockerignore           # Files excluded from Docker build
+
+```
 
 ## 🐳 Run tests with Docker
 
@@ -188,8 +224,3 @@ Run UI tests:
 docker run --rm ecommerce-tests pytest ui_tests
 
 ```
-
-```markdown
-![Python](https://img.shields.io/badge/python-3.11-blue)
-![Pytest](https://img.shields.io/badge/pytest-passing-brightgreen)
-![Docker](https://img.shields.io/badge/docker-ready-blue)
