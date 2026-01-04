@@ -1,9 +1,10 @@
 My Python Projects
 
-This repository contains two separate Python projects:
+This repository contains several separate Python projects:
 1. Books Scraper – a web scraper for books data.
 2. FakeStore API Automation Tests – automated API tests for the FakeStore API.
 3. UI Test Automation Project
+4. Docker support – containerized environment for running API and UI tests.
 
 # Project 1. Books Scraper
 
@@ -142,3 +143,22 @@ https://www.saucedemo.com/
 🔹 How to run:
 pip install -r requirements.txt  
 pytest -v
+
+# Project 4: Docker support 
+
+## 🐳 Run tests with Docker
+
+Build image:
+```bash
+docker build -t ecommerce-tests -f docker/Dockerfile .
+
+Run all tests:
+docker run --rm ecommerce-tests
+
+Run API tests:
+docker run --rm ecommerce-tests pytest api_tests
+
+Run UI tests:
+docker run --rm ecommerce-tests pytest ui_tests
+
+```
