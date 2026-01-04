@@ -1,17 +1,19 @@
 This repository contains several separate Python projects:
-1. Books Scraper – a web scraper for books data.
-2. FakeStore API Automation Tests – automated API tests for the FakeStore API.
-3. UI Test Automation Project
-4. Docker support – containerized environment for running API and UI tests.
+1. **Books Scraper** – a web scraper for books data.
+2. **FakeStore API Automation Tests** – automated API tests for the FakeStore API.
+3. **UI Test Automation Project** - Selenium + Pytest
+4. **Docker support** – containerized environment for running API and UI tests.
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone git clone https://github.com/ypauk/ecommerce-automation.git
+git clone https://github.com/ypauk/ecommerce-automation.git
 cd ecommerce-automation
+```
 
 2. Install dependencies:
+```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -35,7 +37,7 @@ The project demonstrates web scraping with **BeautifulSoup** and saving data to 
 - Easy to run with Python or Docker (optional)
 
 ##  Usage
-```
+```shell
 python scraper.py
 ```
 
