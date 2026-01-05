@@ -1,4 +1,7 @@
-This repository contains several separate Python projects:
+# Ecommerce Automation Projects
+
+This repository contains several Python automation projects demonstrating
+web scraping, API testing, UI automation, and Docker-based execution.
 1. **Books Scraper** – a web scraper for books data.
 2. **FakeStore API Automation Tests** – automated API tests for the FakeStore API.
 3. **UI Test Automation Project** - Selenium + Pytest
@@ -18,7 +21,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-# Project 1. Books Scraper
+# Project 1: Books Scraper
 
 A Python web scraper that collects book data from [Books to Scrape](https://books.toscrape.com) including title, price, availability, rating, and link.  
 The project demonstrates web scraping with **BeautifulSoup** and saving data to CSV.
@@ -36,26 +39,24 @@ The project demonstrates web scraping with **BeautifulSoup** and saving data to 
 - Saves data to `books.csv`
 - Easy to run with Python or Docker (optional)
 
-##  Usage
+## Usage
 ```bash
 python scraper.py
 ```
 
 ## CSV Output
 
-The script saves results to books.csv with the following columns:
+The script saves results to `books.csv` with the following columns:
 
-```
-name — book title
-price — price of the book
-availability — stock status
-rating — star rating
-page — page number
-link — absolute link to the book
-```
+- `name` — book title  
+- `price` — price of the book  
+- `availability` — stock status  
+- `rating` — star rating  
+- `page` — page number  
+- `link` — absolute link to the book 
 
-## Run in Docker:
-```
+## Run in Docker
+```bash
 docker build -f Dockerfile.scraper -t ecommerce-scraper .
 docker run --rm ecommerce-scraper
 ```
@@ -67,15 +68,11 @@ demonstrating Python, Pytest, Requests, and JSON schema validation.
 
 ## Tech Stack
 
-Python 3.9+
-
-Pytest
-
-Requests
-
-jsonschema
-
-Faker (for test data)
+- Python 3.9+
+- Pytest
+- Requests
+- jsonschema
+- Faker (for test data)
 
 ## Project Structure
 
@@ -94,15 +91,11 @@ api_tests/
 
 ## Test Coverage
 
-Retrieve all products
-
-Retrieve products by ID (positive & negative)
-
-Create product
-
-Validate JSON schema
-
-Parametrized tests for multiple payloads
+- Retrieve all products
+- Retrieve products by ID (positive & negative)
+- Create product
+- Validate JSON schema
+- Parametrized tests for multiple payloads
 
 ## Installation & Run Tests
 
@@ -132,8 +125,8 @@ JSON schema validation ensures contract compliance
 
 Parametrized tests demonstrate multiple payloads and edge cases
 
-## Run in Docker (uses Dockerfile):
-```bush
+## Run in Docker (uses Dockerfile)
+```bash
 docker build -t ecommerce-tests .
 docker run --rm ecommerce-tests
 ```
@@ -191,7 +184,7 @@ $env:USE_WEBDRIVER_MANAGER="1"; $env:HEADLESS="0"; python -m pytest -v ui_tests/
 🔹 Run in Docker.
 
 Headless mode:
-```bush
+```bash
 docker build -t ecommerce-tests .
 docker run --rm ecommerce-tests
 
@@ -202,7 +195,7 @@ docker run --rm \
 ```
 
 Debug mode (browser with UI)
-```bush
+```bash
 docker run --rm \
   -e HEADLESS=0 \
   -e USE_WEBDRIVER_MANAGER=1 \
@@ -231,15 +224,21 @@ Isolated environments reduce image size and simplify CI/CD
 
 Build image:
 ```bash
-docker build -t ecommerce-tests -f docker/Dockerfile .
+docker build -t ecommerce-tests .
+```
 
 Run all tests:
+```bash
 docker run --rm ecommerce-tests
+```
 
 Run API tests:
+```bash
 docker run --rm ecommerce-tests pytest api_tests
+```
 
 Run UI tests:
+```bash
 docker run --rm ecommerce-tests pytest ui_tests
-
 ```
+
