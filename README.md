@@ -133,6 +133,8 @@ docker run --rm ecommerce-tests
 
 # Project 3: UI Test Automation Project
 
+Supports local Chrome browser or headless mode (Docker / CI).
+
 🔹 Tech stack:
 - Python
 - Selenium WebDriver
@@ -176,9 +178,15 @@ Flags to control mode:
 - USE_WEBDRIVER_MANAGER=1 → local ChromeDriver
 - HEADLESS=0 → show browser window
 
-🔹 Run locally(Linux / macOS):
-```PowerShell
+🔹 Run locally (Windows PowerShell):
+```powershell
 $env:USE_WEBDRIVER_MANAGER="1"; $env:HEADLESS="0"; python -m pytest -v ui_tests/tests
+```
+🔹 Run locally (Linux / macOS):
+```bash
+export USE_WEBDRIVER_MANAGER=1
+export HEADLESS=0
+python -m pytest -v ui_tests/tests
 ```
 
 🔹 Run in Docker.
