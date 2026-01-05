@@ -1,7 +1,7 @@
 # Ecommerce Automation Projects
 
-This repository contains several Python automation projects demonstrating
-web scraping, API testing, UI automation, and Docker-based execution.
+Automation projects demonstrating Web Scraping, API testing, UI automation, and Dockerized execution.
+
 1. **Books Scraper** – a web scraper for books data.
 2. **FakeStore API Automation Tests** – automated API tests for the FakeStore API.
 3. **UI Test Automation Project** - Selenium + Pytest
@@ -133,13 +133,12 @@ docker run --rm ecommerce-tests
 
 # Project 3: UI Test Automation Project
 
-Supports local Chrome browser or headless mode (Docker / CI).
-
 🔹 Tech stack:
 - Python
 - Selenium WebDriver
 - Pytest
 - Page Object Model (POM)
+- Supports local Chrome browser or headless mode (Docker / CI).
 
 🔹 Tested application:
 https://www.saucedemo.com/
