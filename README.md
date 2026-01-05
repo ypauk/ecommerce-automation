@@ -242,6 +242,5 @@ Run UI tests:
 docker run --rm ecommerce-tests pytest ui_tests
 ```
 
-```md
 ## Author
-Andrii Pauk — Python Automation Engineer
+Yaroslav Pauk — Python Automation Engineer
