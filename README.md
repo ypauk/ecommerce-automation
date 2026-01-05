@@ -5,7 +5,7 @@ web scraping, API testing, UI automation, and Docker-based execution.
 1. **Books Scraper** – a web scraper for books data.
 2. **FakeStore API Automation Tests** – automated API tests for the FakeStore API.
 3. **UI Test Automation Project** - Selenium + Pytest
-4. **Docker support** – containerized environment for running API and UI tests.
+4. **Docker Support** – containerized environment for running API and UI tests.
 
 ## Installation
 
@@ -176,7 +176,7 @@ Flags to control mode:
 - USE_WEBDRIVER_MANAGER=1 → local ChromeDriver
 - HEADLESS=0 → show browser window
 
-🔹 Run locally:
+🔹 Run locally(Linux / macOS):
 ```PowerShell
 $env:USE_WEBDRIVER_MANAGER="1"; $env:HEADLESS="0"; python -m pytest -v ui_tests/tests
 ```
@@ -202,7 +202,7 @@ docker run --rm \
   ecommerce-tests
 ```
 
-# Project 4: Docker support 
+# Project 4: Docker Support 
 
 ## Project Structure
 
@@ -242,3 +242,6 @@ Run UI tests:
 docker run --rm ecommerce-tests pytest ui_tests
 ```
 
+```md
+## Author
+Andrii Pauk — Python Automation Engineer
