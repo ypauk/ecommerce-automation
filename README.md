@@ -168,17 +168,17 @@ https://www.saucedemo.com/
 
 ```
 ui_tests/
-├── pages/                  # Page Object Model (POM) classes
+├── pages/                   # Page Object Model (POM) classes
 │   ├── base_page.py         # Base page with common methods
 │   ├── login_page.py        # Login page actions
 │   ├── inventory_page.py    # Inventory (products) page
 │   ├── cart_page.py         # Shopping cart page
 │   └── checkout_page.py     # Checkout process page
 │
-├── core/                   # WebDriver setup and configuration
-│   └── driver_factory.py   # Browser initialization logic
+├── core/                    # WebDriver setup and configuration
+│   └── driver_factory.py    # Browser initialization logic
 │
-├── tests/                  # UI test cases
+├── tests/                   # UI test cases
 │   ├── test_login.py
 │   ├── test_inventory.py
 │   ├── test_cart.py

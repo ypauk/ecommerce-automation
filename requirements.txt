@@ -7,3 +7,4 @@ jsonschema
 pytest
 jsonschema
 selenium
+allure-pytest
