@@ -43,7 +43,7 @@ The project demonstrates web scraping with **BeautifulSoup** and saving data to 
 
 ```bash
 ecommerce-automation/
-├── docker/                         # Dockerfiles and related files
+├── docker/                          # Dockerfiles and related files
 │   ├── Dockerfile                   # Builds image for UI & API tests
 │   └── Dockerfile.scraper           # Builds image for Books Scraper
 │
