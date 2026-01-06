@@ -1,0 +1,18 @@
+# Base image
+FROM python:3.13-slim
+
+# Set working directory inside container
+WORKDIR /app
+
+# Copy and install dependencies
+COPY ../requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the scraper folder from project root
+COPY ../scraper ./scraper
+
+# Add project root to PYTHONPATH (optional, useful if scraper imports other modules)
+ENV PYTHONPATH=/app
+
+# Default command: run the scraper
+CMD ["python", "scraper/scraper.py"]

@@ -39,6 +39,21 @@ The project demonstrates web scraping with **BeautifulSoup** and saving data to 
 - Saves data to `books.csv`
 - Easy to run with Python or Docker (optional)
 
+## Project Structure
+
+```bash
+ecommerce-automation/
+├── docker/                         # Dockerfiles and related files
+│   ├── Dockerfile                   # Builds image for UI & API tests
+│   └── Dockerfile.scraper           # Builds image for Books Scraper
+│
+├── scraper/                         # Books Scraper
+│   └── scraper.py
+│
+├── requirements.txt                 # Python dependencies
+└── README.md                        # Project documentation
+```
+
 ## Usage
 ```bash
 python scraper.py
@@ -127,8 +142,8 @@ Parametrized tests demonstrate multiple payloads and edge cases
 
 ## Run in Docker (uses Dockerfile)
 ```bash
-docker build -t ecommerce-tests .
-docker run --rm ecommerce-tests
+docker build -f docker/Dockerfile -t ecommerce-tests .
+docker run --rm ecommerce-tests python -m pytest ui_tests
 ```
 
 # Project 3: UI Test Automation Project
@@ -215,28 +230,34 @@ docker run --rm \
 
 ```
 ecommerce-automation/
-├── Dockerfile              # Docker image for running API & UI tests
-├── Dockerfile.scraper      # Docker image for running the books scraper
-├── requirements.txt        # Python dependencies
-├── .dockerignore           # Files excluded from Docker build
+├── docker/                          # Folder containing Dockerfiles and related files
+│   ├── Dockerfile                   # Builds the UI & API tests image
+│   ├── Dockerfile.scraper           # Builds the Scraper image
+│   └── .dockerignore                # Files/folders excluded from Docker build context
+│
+├── ui_tests/                        # UI tests (Selenium + Pytest)
+├── api_tests/                       # API tests (Pytest + requests)
+├── scraper/                         # Web Scraper scripts
+├── requirements.txt                 # Python dependencies
+└── README.md                        # Project documentation
 
 ```
 
 ## 🐳 Run tests with Docker
 
 Two separate Dockerfiles:
-- Dockerfile → for running UI & API tests
-- Dockerfile.scraper → for running Books Scraper
+- docker/Dockerfile → for running UI & API tests
+- docker/Dockerfile.scraper → for running Books Scraper
 Isolated environments reduce image size and simplify CI/CD
 
 Build image:
 ```bash
-docker build -t ecommerce-tests .
+docker build -f docker/Dockerfile -t ecommerce-tests .
 ```
 
 Run all tests:
 ```bash
-docker run --rm ecommerce-tests
+docker run --rm ecommerce-tests python -m pytest ui_tests
 ```
 
 Run API tests:
@@ -246,7 +267,13 @@ docker run --rm ecommerce-tests pytest api_tests
 
 Run UI tests:
 ```bash
-docker run --rm ecommerce-tests pytest ui_tests
+docker run --rm ecommerce-tests python -m pytest ui_tests
+```
+
+Build image and run scraper
+```bash
+docker build -f docker/Dockerfile.scraper -t ecommerce-scraper .
+docker run --rm ecommerce-scraper
 ```
 
 ## Author
