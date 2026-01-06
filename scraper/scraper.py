@@ -7,6 +7,7 @@ root = 'https://books.toscrape.com'
 result = requests.get(root)
 content = result.text
 soup = BeautifulSoup(content, 'lxml')
+
 # print(soup.prettify())
 
 pagination = soup.find('ul', class_='pager')
