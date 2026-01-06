@@ -1,33 +1,74 @@
-name: CI - API & UI Tests
+name: CI - Ecommerce Automation
 
 on:
+  push:
   pull_request:
-    branches: [ "main", "master" ]
 
 jobs:
-  tests:
+
+  # =========================
+  # API TESTS (STRICT)
+  # =========================
+  api-tests:
+    name: API Tests
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t ecommerce-tests -f docker/Dockerfile .
+      - name: Build API Docker image
+        run: docker build -f Dockerfile.api -t api-tests .
 
-      - name: Run tests in Docker with Allure
+      - name: Run API tests
+        run: docker run api-tests
+
+
+  # =========================
+  # UI TESTS (FLAKY, WITH ALLURE)
+  # =========================
+  ui-tests:
+    name: UI Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build UI Docker image
+        run: docker build -f Dockerfile.ui -t ui-tests .
+
+      - name: Run UI tests (allow failure)
+        run: docker run --name ui-tests ui-tests || true
+
+      - name: Copy Allure results
         run: |
-          docker run --name test-container ecommerce-tests \
-          pytest --alluredir=allure-results || true
+          mkdir -p allure-ui
+          docker cp ui-tests:/app/allure-results ./allure-ui
 
-      - name: Copy Allure results from container
-        run: docker cp test-container:/app/allure-results ./allure-results
-
-      - name: Remove container
-        run: docker rm test-container
-
-      - name: Upload Allure Report as artifact
+      - name: Upload Allure UI artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results
-          path: allure-results
+          name: allure-ui
+          path: allure-ui
+
+      - name: Cleanup UI container
+        run: docker rm ui-tests
+
+
+  # =========================
+  # SCRAPING (OPTIONAL / INFO)
+  # =========================
+  scraping:
+    name: Scraping Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Scraper Docker image
+        run: docker build -f Dockerfile.scraper -t scraper .
+
+      - name: Run scraper (allow failure)
+        run: docker run scraper || true
