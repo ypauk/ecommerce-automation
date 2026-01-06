@@ -5,8 +5,10 @@ Automation projects demonstrating Web Scraping, API testing, UI automation, and 
 1. **Books Scraper** – a web scraper for books data.
 2. **FakeStore API Automation Tests** – automated API tests for the FakeStore API.
 3. **UI Test Automation Project** - Selenium + Pytest
-4. **Docker Support** – containerized environment for running API and UI tests, as well as web scraping tasks.
-
+4. **Docker Support** – containerized infrastructure for:
+   - API and UI tests
+   - Web scraping services
+   
 ## Installation
 
 1. Clone the repository:
