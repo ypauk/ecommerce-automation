@@ -1,3 +1,5 @@
+![Python](https://img.shields.io/badge/python-3.9+-blue)
+![Docker](https://img.shields.io/badge/docker-ready-blue)
 # Ecommerce Automation Projects
 
 Automation projects demonstrating Web Scraping, API testing, UI automation, and Dockerized execution.
