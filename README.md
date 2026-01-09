@@ -2,6 +2,8 @@
 
 Automation projects demonstrating Web Scraping, API testing, UI automation, and Dockerized execution.
 
+## Projects Overview
+
 1. **Books Scraper** – a web scraper for books data.
 2. **FakeStore API Automation Tests** – automated API tests for the FakeStore API.
 3. **UI Test Automation Project** - Selenium + Pytest
@@ -72,11 +74,7 @@ The script saves results to `books.csv` with the following columns:
 - `page` — page number  
 - `link` — absolute link to the book 
 
-## Run in Docker
-```bash
-docker build -f Dockerfile.scraper -t ecommerce-scraper .
-docker run --rm ecommerce-scraper
-```
+Run with Docker: see [Docker Support](#project-4-docker-support)
 
 # Project 2: FakeStore API Automation Tests
 
@@ -142,25 +140,21 @@ JSON schema validation ensures contract compliance
 
 Parametrized tests demonstrate multiple payloads and edge cases
 
-## Run in Docker (uses Dockerfile)
-```bash
-docker build -f docker/Dockerfile -t ecommerce-tests .
-docker run --rm ecommerce-tests python -m pytest ui_tests
-```
+Run with Docker: see [Docker Support](#project-4-docker-support)
 
 # Project 3: UI Test Automation Project
 
-🔹 Tech stack:
+Tech stack:
 - Python
 - Selenium WebDriver
 - Pytest
 - Page Object Model (POM)
 - Supports local Chrome browser or headless mode (Docker / CI).
 
-🔹 Tested application:
+Tested application:
 https://www.saucedemo.com/
 
-🔹 Test scenarios:
+Test scenarios:
 - Login (valid, invalid, locked user)
 - Add to cart
 - Checkout process
@@ -194,39 +188,22 @@ Flags to control mode:
 - USE_WEBDRIVER_MANAGER=1 → local ChromeDriver
 - HEADLESS=0 → show browser window
 
-🔹 Run locally (Windows PowerShell):
+Run locally (Windows PowerShell):
 ```powershell
 $env:USE_WEBDRIVER_MANAGER="1"; $env:HEADLESS="0"; python -m pytest -v ui_tests/tests
 ```
-🔹 Run locally (Linux / macOS):
+Run locally (Linux / macOS):
 ```bash
 export USE_WEBDRIVER_MANAGER=1
 export HEADLESS=0
 python -m pytest -v ui_tests/tests
 ```
 
-🔹 Run in Docker.
-
-Headless mode:
-```bash
-docker build -t ecommerce-tests .
-docker run --rm ecommerce-tests
-
-docker run --rm \
-  -e HEADLESS=1 \
-  -e USE_WEBDRIVER_MANAGER=1 \
-  ecommerce-tests
-```
-
-Debug mode (browser with UI)
-```bash
-docker run --rm \
-  -e HEADLESS=0 \
-  -e USE_WEBDRIVER_MANAGER=1 \
-  ecommerce-tests
-```
+Run with Docker: see [Docker Support](#project-4-docker-support)
 
 # Project 4: Docker Support 
+
+All projects can be run in isolated Docker containers for easier setup and CI/CD.
 
 ## Project Structure
 
@@ -245,38 +222,46 @@ ecommerce-automation/
 
 ```
 
-## 🐳 Run tests with Docker
-
 Two separate Dockerfiles:
 - docker/Dockerfile → for running UI & API tests
 - docker/Dockerfile.scraper → for running Books Scraper
 Isolated environments reduce image size and simplify CI/CD
 
-Build image:
+## Build Docker Images
+
+Books Scraper:
+
+```bash
+docker build -f Dockerfile.scraper -t ecommerce-scraper .
+```
+
+UI & API Tests:
 ```bash
 docker build -f docker/Dockerfile -t ecommerce-tests .
 ```
+## Run Containers
 
-Run all tests:
+Books Scraper:
 ```bash
-docker run --rm ecommerce-tests python -m pytest ui_tests
-```
-
-Run API tests:
-```bash
-docker run --rm ecommerce-tests pytest api_tests
-```
-
-Run UI tests:
-```bash
-docker run --rm ecommerce-tests python -m pytest ui_tests
-```
-
-Build image and run scraper
-```bash
-docker build -f docker/Dockerfile.scraper -t ecommerce-scraper .
 docker run --rm ecommerce-scraper
 ```
+
+API Tests:
+```bash
+docker run --rm ecommerce-tests python -m pytest api_tests
+```
+
+UI Tests (Headless mode):
+```bash
+docker run --rm -e HEADLESS=1 -e USE_WEBDRIVER_MANAGER=1 ecommerce-tests
+```
+
+UI Tests (Debug mode — browser visible):
+```bash
+docker run --rm -e HEADLESS=0 -e USE_WEBDRIVER_MANAGER=1 ecommerce-tests
+```
+
+## 🐳 Run tests with Docker
 
 ## Author
 Yaroslav Pauk — Python Automation Engineer
