@@ -264,7 +264,11 @@ UI Tests (Debug mode — browser visible):
 docker run --rm -e HEADLESS=0 -e USE_WEBDRIVER_MANAGER=1 ecommerce-tests
 ```
 
-## 🐳 Run tests with Docker
+### Notes / Tips
+
+- `HEADLESS=1` → run browser in background
+- `HEADLESS=0` → show browser (debug)
+- `USE_WEBDRIVER_MANAGER=1` → use local ChromeDriver
 
 ## Author
 Yaroslav Pauk — Python Automation Engineer
