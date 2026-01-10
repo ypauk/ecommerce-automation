@@ -255,10 +255,16 @@ Books Scraper:
 docker build -f docker/Dockerfile.scraper -t ecommerce-scraper .
 ```
 
-UI & API Tests:
+API Tests:
 ```bash
-docker build -f docker/Dockerfile -t ecommerce-tests .
+docker build -f docker/Dockerfile.api -t ecommerce-api-tests .
 ```
+
+UI  Tests:
+```bash
+docker build -f docker/Dockerfile.ui -t ecommerce-ui-tests .
+```
+
 ## Run Containers
 
 Books Scraper:
@@ -268,7 +274,7 @@ docker run --rm ecommerce-scraper
 
 API Tests:
 ```bash
-docker run --rm ecommerce-tests python -m pytest api_tests
+docker run --rm ecommerce-api-tests
 ```
 
 UI Tests (Headless mode):
