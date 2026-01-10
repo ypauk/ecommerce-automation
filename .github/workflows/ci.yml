@@ -35,7 +35,7 @@ jobs:
       # Install Allure CLI via binary (works on any Ubuntu version)
       - name: Install Allure CLI
         run: |
-          curl -sL https://github.com/allure-framework/allure2/releases/latest/download/allure-2.22.2.zip -o allure.zip
+          curl -sL https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.36.0/allure-commandline-2.36.0.zip
           unzip allure.zip -d /usr/local/bin/
           export PATH=$PATH:/usr/local/bin/allure-2.22.2/bin
           allure --version
@@ -98,7 +98,7 @@ jobs:
       # Install Allure CLI via binary (works on any Ubuntu version)
       - name: Install Allure CLI
         run: |
-          curl -sL https://github.com/allure-framework/allure2/releases/latest/download/allure-2.22.2.zip -o allure.zip
+          curl -sL https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.36.0/allure-commandline-2.36.0.zip
           unzip allure.zip -d /usr/local/bin/
           export PATH=$PATH:/usr/local/bin/allure-2.22.2/bin
           allure --version
