@@ -30,6 +30,9 @@ pip install -r requirements.txt
 
 # Project 1: Books Scraper
 
+Tested application:
+https://books.toscrape.com
+
 A Python web scraper that collects book data from [Books to Scrape](https://books.toscrape.com) including title, price, availability, rating, and link.  
 The project demonstrates web scraping with **BeautifulSoup** and saving data to CSV.
 
@@ -89,6 +92,9 @@ when executed from CI environments (GitHub Actions).
 This behavior is expected and does not indicate issues in test logic.
 
 # Project 2: FakeStore API Automation Tests
+
+Tested API:
+https://fakestoreapi.com/
 
 Automated API tests for FakeStore API
 demonstrating Python, Pytest, Requests, and JSON schema validation.
@@ -155,15 +161,15 @@ Run with Docker: see [Docker Support](#project-4-docker-support)
 
 # Project 3: UI Test Automation Project
 
-Tech stack:
+Tested application:
+https://www.saucedemo.com/
+
+## Tech Stack
 - Python
 - Selenium WebDriver
 - Pytest
 - Page Object Model (POM)
 - Supports local Chrome browser or headless mode (Docker / CI).
-
-Tested application:
-https://www.saucedemo.com/
 
 Test scenarios:
 - Login (valid, invalid, locked user)
