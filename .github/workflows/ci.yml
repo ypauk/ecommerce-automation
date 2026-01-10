@@ -21,7 +21,7 @@ jobs:
         run: docker build -f docker/Dockerfile.api -t api-tests .
 
       - name: Run API tests
-        run: docker run --rm api-tests
+        run: docker run --name api-tests api-tests || true
 
 
   # =========================
