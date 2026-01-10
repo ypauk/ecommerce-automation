@@ -1,8 +1,24 @@
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-books.csv
-.env
+
+# Virtual environments
+venv/
+
+# Test artifacts
+.pytest_cache/
+allure-results/
 *.xml
-*.idea
+
+# Generated data
+books.csv
+
+# Environment variables
+.env
+
+# Git / IDE
+.git
+.gitignore
+.idea/

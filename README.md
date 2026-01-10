@@ -1,6 +1,8 @@
 ![Python](https://img.shields.io/badge/python-3.13-blue)
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
 ![Pytest](https://img.shields.io/badge/pytest-passing-brightgreen)
+![CI](https://github.com/ypauk/ecommerce-automation/actions/workflows/ci.yml/badge.svg)
+
 # Ecommerce Automation Projects
 
 Automation projects demonstrating Web Scraping, API testing, UI automation, and Dockerized execution.
