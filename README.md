@@ -1,5 +1,6 @@
-![Python](https://img.shields.io/badge/python-3.9+-blue)
+![Python](https://img.shields.io/badge/python-3.13-blue)
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
+![Pytest](https://img.shields.io/badge/pytest-passing-brightgreen)
 # Ecommerce Automation Projects
 
 Automation projects demonstrating Web Scraping, API testing, UI automation, and Dockerized execution.
@@ -20,10 +21,7 @@ Automation projects demonstrating Web Scraping, API testing, UI automation, and 
 ```bash
 git clone https://github.com/ypauk/ecommerce-automation.git
 cd ecommerce-automation
-```
 
-2. Install dependencies:
-```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -63,7 +61,7 @@ ecommerce-automation/
 
 ## Usage
 ```bash
-python scraper.py
+python scraper/scraper.py
 ```
 
 ## CSV Output
@@ -94,7 +92,7 @@ demonstrating Python, Pytest, Requests, and JSON schema validation.
 
 ## Tech Stack
 
-- Python 3.9+
+- Python 3.13
 - Pytest
 - Requests
 - jsonschema
@@ -137,11 +135,10 @@ pip install -r requirements.txt
 pytest -v
 
 # Run a single test file
-pytest -v tests/test_products.py
+pytest -v api_tests/tests/test_products.py
 
 # Run a single test function
-pytest tests/test_products.py::test_get_products
-
+pytest api_tests/tests/test_products.py::test_get_products
 ```
 ## Notes
 
@@ -196,8 +193,8 @@ ui_tests/
 
 Supports local Chrome browser or headless mode (for Docker/CI)
 Flags to control mode:
-- USE_WEBDRIVER_MANAGER=1 → local ChromeDriver
-- HEADLESS=0 → show browser window
+- USE_WEBDRIVER_MANAGER=1 → use WebDriverManager (local runs)
+- USE_WEBDRIVER_MANAGER=0 → use preinstalled ChromeDriver (Docker)
 
 Run locally (Windows PowerShell):
 ```powershell
@@ -208,6 +205,11 @@ Run locally (Linux / macOS):
 export USE_WEBDRIVER_MANAGER=1
 export HEADLESS=0
 python -m pytest -v ui_tests/tests
+```
+
+## Run a single test file
+```bash
+python -m pytest ui_tests/tests/test_login.py::test_valid_login
 ```
 
 Run with Docker: see [Docker Support](#project-4-docker-support)
@@ -221,7 +223,8 @@ All projects can be run in isolated Docker containers for easier setup and CI/CD
 ```
 ecommerce-automation/
 ├── docker/                          # Folder containing Dockerfiles and related files
-│   ├── Dockerfile                   # Builds the UI & API tests image
+│   ├── Dockerfile.api               # Builds the API tests image
+│   ├── Dockerfile.ui                # Builds the UI tests image
 │   ├── Dockerfile.scraper           # Builds the Scraper image
 │   └── .dockerignore                # Files/folders excluded from Docker build context
 │
@@ -238,9 +241,10 @@ ecommerce-automation/
 - UI tests run in a separate container with Chrome and Selenium
 - This separation improves build speed, maintainability, and mirrors real-world CI setups
 
-Two separate Dockerfiles(!):
-- docker/Dockerfile → for running UI & API tests
-- docker/Dockerfile.scraper → for running Books Scraper
+Three separate Dockerfiles:
+- docker/Dockerfile.api → API tests (Pytest + Requests)
+- docker/Dockerfile.ui → UI tests (Selenium + Chrome)
+- docker/Dockerfile.scraper → Books Scraper
 Isolated environments reduce image size and simplify CI/CD
 
 ## Build Docker Images
@@ -248,7 +252,7 @@ Isolated environments reduce image size and simplify CI/CD
 Books Scraper:
 
 ```bash
-docker build -f Dockerfile.scraper -t ecommerce-scraper .
+docker build -f docker/Dockerfile.scraper -t ecommerce-scraper .
 ```
 
 UI & API Tests:
@@ -284,4 +288,7 @@ docker run --rm -e HEADLESS=0 -e USE_WEBDRIVER_MANAGER=1 ecommerce-tests
 - `USE_WEBDRIVER_MANAGER=1` → use local ChromeDriver
 
 ## Author
-Yaroslav Pauk — Python Automation Engineer
+Yaroslav Pauk  
+Python Automation Engineer  
+email: paukslava@gmail.com
+GitHub: https://github.com/ypauk
