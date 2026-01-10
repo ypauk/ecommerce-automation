@@ -1,7 +1,7 @@
-# Базовый образ
+# Base lightweight Python image
 FROM python:3.13-slim
 
-# Системные зависимости для Chrome + Selenium
+# Install system dependencies required for Chrome and Selenium
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-# Установка Google Chrome
+# Install Google Chrome
 RUN wget -q -O /usr/share/keyrings/google-linux-signing-key.gpg https://dl.google.com/linux/linux_signing_key.pub \
     && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-signing-key.gpg] http://dl.google.com/linux/chrome/deb/ stable main" \
        > /etc/apt/sources.list.d/google-chrome.list \
@@ -32,19 +32,22 @@ RUN wget -q -O /usr/share/keyrings/google-linux-signing-key.gpg https://dl.googl
     && apt-get install -y google-chrome-stable \
     && rm -rf /var/lib/apt/lists/*
 
-# Рабочая директория
+# Set working directory inside the container
 WORKDIR /app
 
-# Python-зависимости
+# Copy dependency list first (better Docker layer caching)
 COPY requirements.txt .
+
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем проект
+# Copy the entire project into the container
 COPY . .
 
-# Переменные окружения
+# Environment variables for headless UI testing
 ENV HEADLESS=1
 ENV USE_WEBDRIVER_MANAGER=1
+ENV PYTHONUNBUFFERED=1
 
-# 🚀 Запуск UI-тестов
+# Run UI tests
 CMD ["pytest", "-v", "ui_tests"]

@@ -1,12 +1,13 @@
 import pytest
 from ui_tests.core.driver_factory import create_chrome_driver
 
+
 @pytest.fixture
 def browser():
     """
-    Pytest fixture для UI тестов.
-    Создает Chrome WebDriver с incognito и другими опциями.
-    Автоматически закрывает после теста.
+    Pytest fixture for UI tests.
+    Creates a Chrome WebDriver with predefined options.
+    Automatically quits the browser after the test.
     """
     driver = create_chrome_driver()
     yield driver

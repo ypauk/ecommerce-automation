@@ -1,13 +1,17 @@
+# Base lightweight Python image
 FROM python:3.13-slim
 
+# Set working directory inside the container
 WORKDIR /app
 
-# Устанавливаем зависимости
+# Copy dependency list first (better Docker layer caching)
 COPY requirements.txt .
+
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем проект
+# Copy the entire project into the container
 COPY . .
 
-# Запускаем ТОЛЬКО API-тесты
+# Run ONLY API tests
 CMD ["pytest", "-v", "api_tests"]
