@@ -49,7 +49,8 @@ The project demonstrates web scraping with **BeautifulSoup** and saving data to 
 ```bash
 ecommerce-automation/
 ├── docker/                          # Dockerfiles and related files
-│   ├── Dockerfile                   # Builds image for UI & API tests
+│   ├── Dockerfile.api               # Builds image for API tests
+│   ├── Dockerfile.ui                # Builds image for UI tests
 │   └── Dockerfile.scraper           # Builds image for Books Scraper
 │
 ├── scraper/                         # Books Scraper
@@ -241,7 +242,7 @@ ecommerce-automation/
 - UI tests run in a separate container with Chrome and Selenium
 - Scraper runs in an isolated container for data collection
 
-- This separation improves build speed, maintainability, and mirrors real-world CI setups
+This separation improves build speed, maintainability, and mirrors real-world CI setups
 
 Three separate Dockerfiles:
 - docker/Dockerfile.api → API tests (Pytest + Requests)
