@@ -79,6 +79,14 @@ The script saves results to `books.csv` with the following columns:
 
 Run with Docker: see [Docker Support](#project-4-docker-support)
 
+## API Tests Note
+
+API tests use the public FakeStore API.
+Due to Cloudflare protection, these tests may return 403 Forbidden
+when executed from CI environments (GitHub Actions).
+
+This behavior is expected and does not indicate issues in test logic.
+
 # Project 2: FakeStore API Automation Tests
 
 Automated API tests for FakeStore API
@@ -224,8 +232,13 @@ ecommerce-automation/
 └── README.md                        # Project documentation
 
 ```
+### Docker Architecture
 
-Two separate Dockerfiles:
+- API tests run in a lightweight Python container without browser dependencies
+- UI tests run in a separate container with Chrome and Selenium
+- This separation improves build speed, maintainability, and mirrors real-world CI setups
+
+Two separate Dockerfiles(!):
 - docker/Dockerfile → for running UI & API tests
 - docker/Dockerfile.scraper → for running Books Scraper
 Isolated environments reduce image size and simplify CI/CD

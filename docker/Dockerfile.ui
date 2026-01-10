@@ -1,7 +1,7 @@
-# Базовый образ Python
+# Базовый образ
 FROM python:3.13-slim
 
-# Установка системных зависимостей для Chrome + Selenium
+# Системные зависимости для Chrome + Selenium
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
@@ -46,5 +46,5 @@ COPY . .
 ENV HEADLESS=1
 ENV USE_WEBDRIVER_MANAGER=1
 
-# Запуск UI-тестов
-CMD ["pytest", "-v", "ui_tests/tests"]
+# 🚀 Запуск UI-тестов
+CMD ["pytest", "-v", "ui_tests"]

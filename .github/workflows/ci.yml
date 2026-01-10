@@ -21,11 +21,11 @@ jobs:
         run: docker build -f docker/Dockerfile.api -t api-tests .
 
       - name: Run API tests
-        run: docker run api-tests || true
+        run: docker run --rm api-tests
 
 
   # =========================
-  # UI TESTS (FLAKY, WITH ALLURE)
+  # UI TESTS (FLAKY + ALLURE)
   # =========================
   ui-tests:
     name: UI Tests
@@ -41,33 +41,35 @@ jobs:
       - name: Run UI tests (allow failure)
         run: docker run --name ui-tests ui-tests || true
 
-      - name: Copy Allure results
+      - name: Copy Allure results (if exists)
         run: |
           mkdir -p allure-ui
-          docker cp ui-tests:/app/allure-results ./allure-ui
+          docker cp ui-tests:/app/allure-results ./allure-ui || true
 
       - name: Upload Allure UI artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-ui
           path: allure-ui
 
       - name: Cleanup UI container
-        run: docker rm ui-tests
+        if: always()
+        run: docker rm ui-tests || true
 
 
   # =========================
-  # SCRAPING (OPTIONAL / INFO)
+  # SCRAPER (OPTIONAL)
   # =========================
   scraping:
-    name: Scraping Check
+    name: Scraper Check
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Scraper Docker image
+      - name: Build Scraper image
         run: docker build -f docker/Dockerfile.scraper -t scraper .
 
       - name: Run scraper (allow failure)
