@@ -239,6 +239,8 @@ ecommerce-automation/
 
 - API tests run in a lightweight Python container without browser dependencies
 - UI tests run in a separate container with Chrome and Selenium
+- Scraper runs in an isolated container for data collection
+
 - This separation improves build speed, maintainability, and mirrors real-world CI setups
 
 Three separate Dockerfiles:
@@ -279,12 +281,12 @@ docker run --rm ecommerce-api-tests
 
 UI Tests (Headless mode):
 ```bash
-docker run --rm -e HEADLESS=1 -e USE_WEBDRIVER_MANAGER=1 ecommerce-tests
+docker run --rm -e HEADLESS=1 -e USE_WEBDRIVER_MANAGER=1 ecommerce-ui-tests
 ```
 
 UI Tests (Debug mode — browser visible):
 ```bash
-docker run --rm -e HEADLESS=0 -e USE_WEBDRIVER_MANAGER=1 ecommerce-tests
+docker run --rm -e HEADLESS=0 -e USE_WEBDRIVER_MANAGER=1 ecommerce-ui-tests
 ```
 
 ### Notes / Tips
