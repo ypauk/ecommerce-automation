@@ -32,15 +32,19 @@ jobs:
           mkdir -p allure-api
           docker cp api-tests:/app/allure-results ./allure-api || true
 
-      # Generate HTML report using Allure Docker service
-      - name: Generate API HTML Report
+      # Install Allure CLI on runner
+      - name: Install Allure CLI
+        run: |
+          sudo apt-add-repository ppa:qameta/allure -y
+          sudo apt update
+          sudo apt install allure -y
+          allure --version
+
+      # Generate HTML report for API
+      - name: Generate API Allure HTML Report
         run: |
           mkdir -p allure-api-report
-          docker run --rm \
-            -v ${GITHUB_WORKSPACE}/allure-api:/app/allure-results \
-            -v ${GITHUB_WORKSPACE}/allure-api-report:/app/allure-report \
-            frankescobar/allure-docker-service:latest \
-            generate /app/allure-results -o /app/allure-report --clean
+          allure generate ./allure-api -o ./allure-api-report --clean
 
       # Upload raw Allure results as artifact (optional)
       - name: Upload API Allure artifacts
@@ -85,23 +89,27 @@ jobs:
         run: docker run --name ui-tests ui-tests || true
 
       # Copy raw Allure results from container
-      - name: Copy Allure results (if exists)
+      - name: Copy UI Allure results
         run: |
           mkdir -p allure-ui
           docker cp ui-tests:/app/allure-results ./allure-ui || true
 
-      # Generate HTML report using Allure Docker service
-      - name: Generate Allure HTML Report
+      # Install Allure CLI on runner
+      - name: Install Allure CLI
+        run: |
+          sudo apt-add-repository ppa:qameta/allure -y
+          sudo apt update
+          sudo apt install allure -y
+          allure --version
+
+      # Generate HTML report for UI
+      - name: Generate UI Allure HTML Report
         run: |
           mkdir -p allure-report
-          docker run --rm \
-            -v ${GITHUB_WORKSPACE}/allure-ui:/app/allure-results \
-            -v ${GITHUB_WORKSPACE}/allure-report:/app/allure-report \
-            frankescobar/allure-docker-service:latest \
-            generate /app/allure-results -o /app/allure-report --clean
+          allure generate ./allure-ui -o ./allure-report --clean
 
       # Upload raw Allure results as artifact (optional)
-      - name: Upload Allure UI artifacts
+      - name: Upload UI Allure artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -109,7 +117,7 @@ jobs:
           path: allure-ui
 
       # Upload HTML report as artifact
-      - name: Upload Allure HTML Report
+      - name: Upload UI HTML Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
