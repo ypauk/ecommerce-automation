@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -32,19 +32,19 @@ jobs:
           mkdir -p allure-api
           docker cp api-tests:/app/allure-results ./allure-api || true
 
-      # Install Allure CLI via binary (works on any Ubuntu version)
+      # Install Allure CLI via Maven Central binary (works on any Ubuntu)
       - name: Install Allure CLI
         run: |
-          curl -sL https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.36.0/allure-commandline-2.36.0.zip
-          unzip allure.zip -d /usr/local/bin/
-          export PATH=$PATH:/usr/local/bin/allure-2.22.2/bin
+          curl -sL https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.36.0/allure-commandline-2.36.0.zip -o allure-cli.zip
+          unzip allure-cli.zip -d allure-cli
+          export PATH="$PWD/allure-cli/allure-2.36.0/bin:$PATH"
           allure --version
 
       # Generate HTML report for API
       - name: Generate API Allure HTML Report
         run: |
           mkdir -p allure-api-report
-          export PATH=$PATH:/usr/local/bin/allure-2.22.2/bin
+          export PATH="$PWD/allure-cli/allure-2.36.0/bin:$PATH"
           allure generate ./allure-api -o ./allure-api-report --clean
 
       # Upload raw Allure results as artifact (optional)
@@ -95,19 +95,19 @@ jobs:
           mkdir -p allure-ui
           docker cp ui-tests:/app/allure-results ./allure-ui || true
 
-      # Install Allure CLI via binary (works on any Ubuntu version)
+      # Install Allure CLI via Maven Central binary (works on any Ubuntu)
       - name: Install Allure CLI
         run: |
-          curl -sL https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.36.0/allure-commandline-2.36.0.zip
-          unzip allure.zip -d /usr/local/bin/
-          export PATH=$PATH:/usr/local/bin/allure-2.22.2/bin
+          curl -sL https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.36.0/allure-commandline-2.36.0.zip -o allure-cli.zip
+          unzip allure-cli.zip -d allure-cli
+          export PATH="$PWD/allure-cli/allure-2.36.0/bin:$PATH"
           allure --version
 
       # Generate HTML report for UI
       - name: Generate UI Allure HTML Report
         run: |
           mkdir -p allure-report
-          export PATH=$PATH:/usr/local/bin/allure-2.22.2/bin
+          export PATH="$PWD/allure-cli/allure-2.36.0/bin:$PATH"
           allure generate ./allure-ui -o ./allure-report --clean
 
       # Upload raw Allure results as artifact (optional)
@@ -137,17 +137,4 @@ jobs:
   # =========================
   scraping:
     name: Scraper Check
-    runs-on: ubuntu-latest
-
-    steps:
-      # Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # Build Scraper Docker image
-      - name: Build Scraper image
-        run: docker build -f docker/Dockerfile.scraper -t scraper .
-
-      # Run scraper (allow failure)
-      - name: Run scraper
-        run: docker run scraper || true
+    runs-on: ub
