@@ -137,4 +137,17 @@ jobs:
   # =========================
   scraping:
     name: Scraper Check
-    runs-on: ub
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Build Scraper Docker image
+      - name: Build Scraper image
+        run: docker build -f docker/Dockerfile.scraper -t scraper .
+
+      # Run scraper (allow failure)
+      - name: Run scraper
+        run: docker run scraper || true
