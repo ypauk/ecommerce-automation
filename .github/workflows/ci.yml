@@ -32,18 +32,19 @@ jobs:
           mkdir -p allure-api
           docker cp api-tests:/app/allure-results ./allure-api || true
 
-      # Install Allure CLI on runner
+      # Install Allure CLI via binary (works on any Ubuntu version)
       - name: Install Allure CLI
         run: |
-          sudo apt-add-repository ppa:qameta/allure -y
-          sudo apt update
-          sudo apt install allure -y
+          curl -sL https://github.com/allure-framework/allure2/releases/latest/download/allure-2.22.2.zip -o allure.zip
+          unzip allure.zip -d /usr/local/bin/
+          export PATH=$PATH:/usr/local/bin/allure-2.22.2/bin
           allure --version
 
       # Generate HTML report for API
       - name: Generate API Allure HTML Report
         run: |
           mkdir -p allure-api-report
+          export PATH=$PATH:/usr/local/bin/allure-2.22.2/bin
           allure generate ./allure-api -o ./allure-api-report --clean
 
       # Upload raw Allure results as artifact (optional)
@@ -94,18 +95,19 @@ jobs:
           mkdir -p allure-ui
           docker cp ui-tests:/app/allure-results ./allure-ui || true
 
-      # Install Allure CLI on runner
+      # Install Allure CLI via binary (works on any Ubuntu version)
       - name: Install Allure CLI
         run: |
-          sudo apt-add-repository ppa:qameta/allure -y
-          sudo apt update
-          sudo apt install allure -y
+          curl -sL https://github.com/allure-framework/allure2/releases/latest/download/allure-2.22.2.zip -o allure.zip
+          unzip allure.zip -d /usr/local/bin/
+          export PATH=$PATH:/usr/local/bin/allure-2.22.2/bin
           allure --version
 
       # Generate HTML report for UI
       - name: Generate UI Allure HTML Report
         run: |
           mkdir -p allure-report
+          export PATH=$PATH:/usr/local/bin/allure-2.22.2/bin
           allure generate ./allure-ui -o ./allure-report --clean
 
       # Upload raw Allure results as artifact (optional)
