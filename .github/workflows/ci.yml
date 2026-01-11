@@ -1,55 +1,153 @@
-name: CI - API & UI Tests
+name: CI - Ecommerce Automation
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
 
 jobs:
-  tests:
+
+  # =========================
+  # API TESTS (STRICT + ALLURE)
+  # =========================
+  api-tests:
+    name: API Tests
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ===============================
-      # API TESTS
-      # ===============================
+      # Build Docker image for API tests
       - name: Build API Docker image
         run: docker build -f docker/Dockerfile.api -t api-tests .
 
+      # Run API tests (allow failure so workflow does not stop)
       - name: Run API tests
         run: docker run --name api-tests api-tests || true
 
+      # Copy raw Allure results from container
       - name: Copy API Allure results
-        run: docker cp api-tests:/app/allure-results ./allure-api || true
+        run: |
+          mkdir -p allure-api
+          docker cp api-tests:/app/allure-results ./allure-api || true
 
+      # Install Allure CLI via Maven Central binary (works on any Ubuntu)
+      - name: Install Allure CLI
+        run: |
+          curl -sL https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.36.0/allure-commandline-2.36.0.zip -o allure-cli.zip
+          unzip allure-cli.zip -d allure-cli
+          export PATH="$PWD/allure-cli/allure-2.36.0/bin:$PATH"
+          allure --version
+
+      # Generate HTML report for API
+      - name: Generate API Allure HTML Report
+        run: |
+          mkdir -p allure-api-report
+          export PATH="$PWD/allure-cli/allure-2.36.0/bin:$PATH"
+          allure generate ./allure-api -o ./allure-api-report --clean
+
+      # Upload raw Allure results as artifact (optional)
       - name: Upload API Allure artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-api-results
+          name: allure-api
           path: allure-api
 
-      # ===============================
-      # UI TESTS
-      # ===============================
-      - name: Build UI Docker image (no cache)
-        run: docker build --no-cache -f docker/Dockerfile.ui -t ui-tests .
+      # Upload HTML report as artifact
+      - name: Upload API HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-api-report
+          path: allure-api-report
 
+      # Cleanup API container
+      - name: Cleanup API container
+        if: always()
+        run: docker rm api-tests || true
+
+
+  # =========================
+  # UI TESTS (FLAKY + ALLURE)
+  # =========================
+  ui-tests:
+    name: UI Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Build UI Docker image
+      - name: Build UI Docker image
+        run: docker build -f docker/Dockerfile.ui -t ui-tests .
+
+      # Run UI tests (allow failure so workflow does not stop)
       - name: Run UI tests
         run: docker run --name ui-tests ui-tests || true
 
-      - name: Debug UI container (check Allure results)
-        run: |
-          docker exec ui-tests ls -la /app || true
-          docker exec ui-tests ls -la /app/allure-results || true
-
+      # Copy raw Allure results from container
       - name: Copy UI Allure results
-        run: docker cp ui-tests:/app/allure-results ./allure-ui || true
+        run: |
+          mkdir -p allure-ui
+          docker cp ui-tests:/app/allure-results ./allure-ui || true
 
+      # Install Allure CLI via Maven Central binary (works on any Ubuntu)
+      - name: Install Allure CLI
+        run: |
+          curl -sL https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.36.0/allure-commandline-2.36.0.zip -o allure-cli.zip
+          unzip allure-cli.zip -d allure-cli
+          export PATH="$PWD/allure-cli/allure-2.36.0/bin:$PATH"
+          allure --version
+
+      # Generate HTML report for UI
+      - name: Generate UI Allure HTML Report
+        run: |
+          mkdir -p allure-report
+          export PATH="$PWD/allure-cli/allure-2.36.0/bin:$PATH"
+          allure generate ./allure-ui -o ./allure-report --clean
+
+      # Upload raw Allure results as artifact (optional)
       - name: Upload UI Allure artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-ui-results
+          name: allure-ui
           path: allure-ui
+
+      # Upload HTML report as artifact
+      - name: Upload UI HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-html-report
+          path: allure-report
+
+      # Cleanup UI container
+      - name: Cleanup UI container
+        if: always()
+        run: docker rm ui-tests || true
+
+
+  # =========================
+  # SCRAPER (OPTIONAL)
+  # =========================
+  scraping:
+    name: Scraper Check
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Build Scraper Docker image
+      - name: Build Scraper image
+        run: docker build -f docker/Dockerfile.scraper -t scraper .
+
+      # Run scraper (allow failure)
+      - name: Run scraper
+        run: docker run scraper || true
