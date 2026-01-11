@@ -49,5 +49,6 @@ ENV HEADLESS=1
 ENV USE_WEBDRIVER_MANAGER=1
 ENV PYTHONUNBUFFERED=1
 
-# Run UI tests
-CMD ["pytest", "-v", "ui_tests"]
+# Run UI tests WITH Allure enabled
+CMD mkdir -p /app/allure-results \
+    && pytest -v ui_tests --alluredir=/app/allure-results || true
